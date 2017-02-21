@@ -2,10 +2,11 @@
  * Created by Petr on 13.2.2017.
  */
 
-var post = require('../datasets/posts.js');
+let post = require('../datasets/posts.js');
 
 module.exports.getPosts = function(req, res){
-    post.find({}).exec(function(err, posts){
+
+    post.find({}).sort({_id: -1}).exec(function(err, posts){
         if(err){
             res.statusCode(500);
             res.send();
@@ -17,10 +18,12 @@ module.exports.getPosts = function(req, res){
 
 module.exports.like = function(req, res){
 
-    post.findById(req.params.id, function (err, post) {
+    post.findById(req.body.id, function (err, foundPost) {
 
-        post.likedBy.push(req.body.name);
-        post.save(function (err, updatedPost) {
+        foundPost.likedBy.push(req.body.name);
+        foundPost.likeCount++;
+
+        foundPost.save(function (err, updatedPost) {
             if(err){
                 res.statusCode(500);
                 res.send();
@@ -29,5 +32,53 @@ module.exports.like = function(req, res){
             res.json(updatedPost);
         });
     });
+};
 
+module.exports.dislike = function(req, res){
+
+    post.findById(req.body.id, function (err, foundPost) {
+
+        foundPost.likedBy.push(req.body.name);
+        let newLikedBy = foundPost.likedBy.map((like)=>{
+            if(like !== req.body.name){
+                return like
+            }
+        });
+
+        foundPost.likeCount--;
+        foundPost.likedBy = newLikedBy;
+
+        foundPost.save(function (err, updatedPost) {
+            if(err){
+                res.statusCode(500);
+                res.send();
+            }
+            res.json(updatedPost);
+        });
+    });
+};
+
+module.exports.delete = function(req, res){
+
+  post.remove({_id: req.body.id}, function(err){
+      if(err){
+          res.statusCode(500);
+          res.send();
+      }
+      res.json(true);
+  })
+
+};
+
+module.exports.addPost = function(req, res){
+
+    let newPost = new post(req.body.data);
+
+    newPost.save(function (err, savedPost) {
+        if(err){
+            res.statusCode(500);
+            res.send();
+        }
+        res.json(true);
+    });
 };

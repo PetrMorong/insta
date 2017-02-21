@@ -6,5 +6,8 @@ var mongoose = require('mongoose');
 module.exports = mongoose.model('post', {
     title: String,
     image: String,
-    likeCount: 0
-})
+    ownerName: String,
+    ownerImage: String,
+    likeCount: 0,
+    likedBy: []
+});

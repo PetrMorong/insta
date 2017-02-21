@@ -3,7 +3,8 @@
  */
 
 export default function reducer(state={
-    posts: []
+    posts: [],
+    fetching: true
 }, action){
 
     switch(action.type) {

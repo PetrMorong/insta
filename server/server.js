@@ -1,21 +1,30 @@
 /**
  * Created by Petr on 13.2.2017.
  */
-var express = require('express');
-var app = express();
-var bodyParser  = require('body-parser');
-var mongoose = require('mongoose');
+let express = require('express');
+let app = express();
+let bodyParser  = require('body-parser');
+let mongoose = require('mongoose');
 
 //connect to mongo
-var mongooseKey = require('./constants.js');
-mongoose.connect(mongooseKey.MONGO_URL);
+let mongooseKey = require('./constants.js');
+mongoose.Promise = global.Promise;
+mongoose.connect(mongooseKey.MONGO_URL, {
+    server: {
+        socketOptions: {
+            socketTimeoutMS: 0,
+            connectionTimeout: 0
+        }
+    }
+});
 
 
 //controllers
-var instaController = require('./controllers/insta-controller.js');
+let instaController = require('./controllers/insta-controller.js');
 
 //dependencies
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -26,7 +35,10 @@ app.use(function (req, res, next) {
 });
 
 app.get('/get-posts', instaController.getPosts);
-app.post('/like/:id', instaController.like);
+app.post('/like', instaController.like);
+app.post('/dislike', instaController.dislike);
+app.post('/delete', instaController.delete);
+app.post('/add-post', instaController.addPost)
 
 
 app.listen(3002, function(){
