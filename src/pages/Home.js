@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import { fetchPosts, like, dislike, deletePost } from '../actions/postActions'
+import { fetchPosts, like, dislike } from '../actions/postActions'
 import { connect } from 'react-redux';
 import Navigation from '../components/Navigation'
+import { Link } from 'react-router'
 
 
 const mapStateToProps = (store) => {
     return{
-        post: store.post.posts
+        post: store.post.posts,
+        fetching: store.post.fetching
     }
 };
 
@@ -26,9 +28,7 @@ export default class Home extends Component {
         this.props.dispatch(dislike(id, this.props.routes[0].userName))
     }
 
-    _handleDelete(id){
-        this.props.dispatch(deletePost(id))
-    }
+
 
 
     render() {
@@ -54,9 +54,11 @@ export default class Home extends Component {
 
             return (
                 <div className="item" key={post._id}>
-                    <div className="item-owner">
-                        <img className="item-ownerImage" src={post.ownerImage} alt=""/>
-                        <span className="item-ownerName">{post.ownerName}</span>
+                    <div >
+                        <Link className="item-owner" to={'profile/' + post.ownerName}>
+                            <img className="item-ownerImage" src={post.ownerImage} alt=""/>
+                            <span className="item-ownerName">{post.ownerName}</span>
+                        </Link>
                     </div>
                     <div className="item-image">
                         <img src={post.image} alt=""/>
@@ -72,7 +74,6 @@ export default class Home extends Component {
                         </div>
                         <div className="item-heart">
                             {heart}
-                            <buton onClick={() => this._handleDelete(post._id)} className="button">Delete</buton>
                         </div>
                     </div>
                 </div>
@@ -80,8 +81,10 @@ export default class Home extends Component {
         });
 
         let view;
-        if(this.props.post.fetching){
-            view = <span>fetching..</span>
+        if(this.props.fetching){
+            view = <div className="loader">
+                <img src={require('../img/ring-alt.gif')} alt="loader"/>
+            </div>
         }else{
             view = mappedPosts;
         }
@@ -89,7 +92,7 @@ export default class Home extends Component {
 
     return (
         <div>
-            <Navigation/>
+            <Navigation userName={this.props.routes[0].userName}/>
             <div className="content">
                 {view}
             </div>

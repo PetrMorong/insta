@@ -7,6 +7,7 @@ import { Router, Route, hashHistory, } from 'react-router'
 import Home from './pages/Home'
 import AddPost from './pages/AddPost'
 import Login from './pages/Login'
+import Profile from './pages/Profile'
 import './styles/App.css';
 
 const NotFound = () => (
@@ -49,7 +50,8 @@ export default class AppRouter extends Component{
             view = <div>
                 <Router history={hashHistory}>
                     <Route path='/' component={Home} userName={this.state.user.name}/>
-                    <Route path='/add-post' component={AddPost}/>
+                    <Route path='/add-post' component={AddPost} userName={this.state.user.name}/>
+                    <Route path='/profile/:user' component={Profile} user={this.state.user}/>
                     <Route path='*' component={NotFound} />
                 </Router>
             </div>

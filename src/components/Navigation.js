@@ -66,7 +66,7 @@ export default class Navigation extends Component{
                     </div>
                     <div className="searchWrap">
                         <Link to={'add-post'}><Camera style={{fontSize: 25, margin: 10}}/></Link>
-                        <Link><Person style={{fontSize: 30, margin: 10}}/></Link>
+                        <Link to={'profile/' + this.props.userName}><Person style={{fontSize: 30, margin: 10}}/></Link>
 
                     </div>
                 </div>

@@ -82,3 +82,27 @@ module.exports.addPost = function(req, res){
         res.json(true);
     });
 };
+
+module.exports.renderImage = function(req,res){
+
+    post.findById(req.params.id, function(err, foundPost){
+        if(err){
+            res.statusCode(500);
+            res.send();
+        }
+        res.json(foundPost.image);
+    })
+
+};
+
+module.exports.fetchProfile = function(req, res){
+
+    post.find({ownerName: req.params.name}).sort({_id: -1}).exec(function(err, posts){
+        if(err){
+            res.statusCode(500);
+            res.send();
+            return;
+        }
+        res.json(posts);
+    })
+};

@@ -1,3 +1,15 @@
+a{
+  text-decoration: none;
+}
+
+a:visited{
+  color: #262626;
+}
+
+a:active {
+  color: #262626;
+}
+
 .App{
   font-family: Roboto;
 }
@@ -71,6 +83,7 @@
 .item-image img{
   width: 100%;
   height: 350px;
+  object-fit: cover;
 }
 
 .item-smallWrap{
@@ -285,5 +298,252 @@
 .item-titleWrap{
   margin-top: 10px;
 }
+.loader{
+  width:100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 100px;
+}
+
+.loaderModal{
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  right: 0;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  background: rgba(0,0,0,.7);
+}
+
+.loaderModalWrap{
+  width: 400px;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: white;
+  box-shadow: 0 27px 24px 0 rgba(0, 0, 0, 0.2), 0 40px 77px 0 rgba(0, 0, 0, 0.22);
+  border-radius: 3px;
+}
+
+.loaderModalWrap h5{
+  margin-top: 30px;
+}
+
+.profileTop{
+  display: flex;
+}
+
+.profileImageWrap{
+  width: 33%;
+  display: flex;
+  justify-content: center;
+
+}
+
+.profileImgWrap{
+  margin: 7px;
+}
+
+.profileImage{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+
+}
+.profileTopRight{
+  width: 66%;
+}
+
+.profileWrap{
+  max-width: 1000px;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.profileName{
+  font-size: 34px;
+  line-height: 40px;
+}
+
+.profileLine{
+  margin-bottom: 15px;
+}
+
+.profileGrid{
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 50px;
+}
+
+.profileImg {
+  width: 315px;
+  height: 315px;
+  margin-bottom: 25px;
+  object-fit: cover;
+}
+
+.profileImgWrapHovered .hoverProfileImage{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: calc(100% - 30px);
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.hoverProfileImage{
+  display: none;
+}
+.hoverProfileImageWrap img{
+  width: 20px;
+  height: 20px;
+}
+
+.profileImgWrap{
+  position: relative;
+}
+
+.heartCount{
+  font-weight: 500;
+  color: white;
+  margin-left: 10px;
+}
+
+.hoverProfileImageWrap{
+  align-items: center;
+  display: flex;
+}
+
+.postDetailWrap{
+  position: absolute;
+  background: rgba(0,0,0,.7);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.postDetailSmallWrap{
+  max-width: 1000px;
+  width: 75%;
+  height: 85vh;
+  display: flex;
+  background: white;
+  position: relative;
+}
+
+.postDetailRight{
+  width: 300px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+}
+
+.postDetailLeft{
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.postDetailLeft img{
+  width: 100%;
+  object-fit: cover;
+}
+
+.postDetailRightTop{
+  display: flex;
+  align-items: center;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #EFEFEF;
+}
+
+.postDetailRightTop img{
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.mediumFont{
+  font-weight: 500;
+}
+.postDetailRightLikes{
+  padding-top: 15px;
+}
+
+.postDetailRightOwner{
+  padding-top: 15px;
+}
+
+.postDetailClose{
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  color: white;
+  cursor: pointer;
+  font-size: 30px;
+}
+.paddingLeft10{
+  padding-left: 10px;
+}
+
+.relativePosition{
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.postDetailChevronLeft{
+  position: absolute;
+  left: -50px;
+  color: white;
+  font-size: 60px;
+  top: 40%;
+  cursor: pointer;
+}
+
+.postDetailChevronRight{
+  position: absolute;
+  right: -50px;
+  color: white;
+  font-size: 60px;
+  top: 40%;
+  cursor: pointer;
+}
+
+.postDetailRightCommentSection{
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.postDetailRightLikeSection{
+  border-top: 1px solid #EFEFEF;
+  padding-top: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.profileHeart{
+  width: 20px;
+  height: 20px;
+}
 
 
+body{
+  margin: 0;
+}

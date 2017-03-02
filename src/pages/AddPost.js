@@ -7,7 +7,12 @@ import Photo from 'react-icons/lib/md/add-a-photo'
 import { connect } from 'react-redux';
 import { addPost } from '../actions/postActions'
 
-
+const mapStateToProps = (store) => {
+    return{
+        uploaded: store.post.uploaded,
+        uploading: store.post.uploading
+    }
+};
 
 export default class AddPost extends Component{
     constructor(props){
@@ -52,10 +57,24 @@ export default class AddPost extends Component{
             likeCount: 0
         };
         this.props.dispatch(addPost(data))
-        this.props.router.push('/')
     }
 
     render(){
+
+        let loader;
+        if(this.props.uploading){
+            loader = <div className="loaderModal">
+                <div className="loaderModalWrap">
+                    <img src={require('../img/ring-alt.gif')} alt="loader"/>
+                    <h5>NAHRÁVÁM...</h5>
+                </div>
+            </div>
+        }
+
+        if(this.props.uploaded ){
+            this.props.router.push('/')
+        }
+
         let image;
         if(this.state.imagePreviewUrl){
             image = <img className="imagePreview" alt="postImg" src={this.state.imagePreviewUrl} />
@@ -64,7 +83,7 @@ export default class AddPost extends Component{
         }
         return(
             <div>
-                <Navigation />
+                <Navigation userName={this.props.routes[0].userName}/>
                 <div className="contentAddPost">
                     <div className="addPostWrap">
                         <textarea value={this.state.description} onChange={this._handleDescriptionChange} placeholder="popisek" className="description" cols="30" rows="3" />
@@ -73,15 +92,16 @@ export default class AddPost extends Component{
                             {image}
                         </div>
                         <div className="btnWrap">
-                            <button className="btn" onClick={()=>this._handleSubmit()}>Odeslat</button>
+                            <button disabled={this.props.uploading} className="btn" onClick={()=>this._handleSubmit()}>Odeslat</button>
                         </div>
                     </div>
                 </div>
+                {loader}
             </div>
         )
     }
 }
 
-module.exports = connect()(AddPost)
+module.exports = connect(mapStateToProps)(AddPost)
 
 

@@ -6,18 +6,18 @@ let app = express();
 let bodyParser  = require('body-parser');
 let mongoose = require('mongoose');
 
+
 //connect to mongo
 let mongooseKey = require('./constants.js');
 mongoose.Promise = global.Promise;
 mongoose.connect(mongooseKey.MONGO_URL, {
     server: {
         socketOptions: {
-            socketTimeoutMS: 0,
-            connectionTimeout: 0
+            socketTimeoutMS: 90000,
+            connectionTimeout: 90000
         }
     }
 });
-
 
 //controllers
 let instaController = require('./controllers/insta-controller.js');
@@ -38,7 +38,9 @@ app.get('/get-posts', instaController.getPosts);
 app.post('/like', instaController.like);
 app.post('/dislike', instaController.dislike);
 app.post('/delete', instaController.delete);
-app.post('/add-post', instaController.addPost)
+app.post('/add-post', instaController.addPost);
+app.get('/render-image/:id', instaController.renderImage);
+app.get('/fetch-profile/:name', instaController.fetchProfile)
 
 
 app.listen(3002, function(){
