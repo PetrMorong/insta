@@ -1,10 +1,16 @@
 {
   "name": "instaSpam",
   "version": "0.0.1",
+  "engines": {
+    "node": "6.9.2"
+  },
   "dependencies": {
     "body-parser": "^1.16.0",
     "express": "^4.14.0",
     "mongoose": "^4.7.7",
     "multer": "^1.3.0"
+  },
+  "scripts": {
+    "start": "node server.js"
   }
 }

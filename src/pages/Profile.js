@@ -83,7 +83,13 @@ export default class Profile extends Component {
         const user = this.props.route.user;
         const { posts } = this.props;
 
+        let ownerImage;
+        let ownerName;
         let mappedPosts = posts.map((post, key)=>{
+
+            ownerImage = post.ownerImage;
+            ownerName = post.ownerName;
+
             let classes;
             if(this.state.isHovering === post._id){
                 classes = 'profileImgWrap profileImgWrapHovered'
@@ -191,11 +197,11 @@ export default class Profile extends Component {
                     <div className="profileWrap">
                         <div className="profileTop">
                             <div className="profileImageWrap">
-                                <img src={user.image} alt="profilePic" className="profileImage"/>
+                                <img src={ownerImage} alt="profilePic" className="profileImage"/>
                             </div>
                             <div className="profileTopRight">
                                 <div className="profileLine">
-                                    <span className="profileName">{user.name}</span>
+                                    <span className="profileName">{ownerName}</span>
                                 </div>
                                 <div>
                                     Příspěvky  ({Object.keys(posts).length})

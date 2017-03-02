@@ -5,6 +5,7 @@ let express = require('express');
 let app = express();
 let bodyParser  = require('body-parser');
 let mongoose = require('mongoose');
+var path = require('path');
 
 
 //connect to mongo
@@ -17,6 +18,10 @@ mongoose.connect(mongooseKey.MONGO_URL, {
             connectionTimeout: 90000
         }
     }
+});
+
+app.get('/', function(req, res) {
+    res.sendFile(path.join(__dirname + '/index.html'));
 });
 
 //controllers
@@ -43,6 +48,8 @@ app.get('/render-image/:id', instaController.renderImage);
 app.get('/fetch-profile/:name', instaController.fetchProfile)
 
 
-app.listen(3002, function(){
-    console.log('we have a server sir!');
+let port = process.env.PORT || 8080;
+
+app.listen(port, function(){
+    console.log('we have a server sir! on port ' + port);
 });

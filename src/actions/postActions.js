@@ -8,7 +8,7 @@ export function fetchPosts(){
     return function(dispatch) {
         dispatch({type: 'FETCH_POST'})
         request
-            .get('http://10.0.0.12:3002/get-posts')
+            .get('https://instapuppy.herokuapp.com/get-posts')
             .end(function(err, res){
                 if(err){
                     dispatch({type: 'FETCH_POST_REJECTED', payload: JSON.parse(res)})
@@ -21,7 +21,7 @@ export function fetchPosts(){
 export function like(id, name){
     return function(dispatch) {
         dispatch({type: 'LIKED', _id: id, name: name})
-        request.post('http://10.0.0.12:3002/like')
+        request.post('https://instapuppy.herokuapp.com/like')
             .send({name: name, id: id})
             .set('Content-Type', 'application/json')
             .end(function(err, res){
@@ -36,7 +36,7 @@ export function like(id, name){
 export function dislike(id, name){
     return function(dispatch) {
         dispatch({type: 'DISLIKED', _id: id, name: name})
-        request.post('http://10.0.0.12:3002/dislike')
+        request.post('https://instapuppy.herokuapp.com/dislike')
             .send({name: name, id: id})
             .end(function(err, res){
                 if(err){
@@ -49,7 +49,7 @@ export function dislike(id, name){
 
 export function deletePost(id, name){
     return function(dispatch) {
-        request.post('http://10.0.0.12:3002/delete')
+        request.post('https://instapuppy.herokuapp.com/delete')
             .send({id: id})
             .end(function(err, res){
                 if(err){
@@ -65,7 +65,7 @@ export function deletePost(id, name){
 export function addPost(data){
     return function (dispatch) {
         dispatch({type: 'UPLOAD_POST'});
-        request.post('http://10.0.0.12:3002/add-post')
+        request.post('https://instapuppy.herokuapp.com/add-post')
             .send({data: data})
             .end(function(err, res){
                 if(err){
@@ -79,7 +79,7 @@ export function addPost(data){
 export function fetchProfile(name) {
     return function (dispatch) {
         dispatch({type: 'FETCH_PROFILE'})
-        request.get('http://10.0.0.12:3002/fetch-profile/' + name)
+        request.get('https://instapuppy.herokuapp.com/fetch-profile/' + name)
             .end(function(err, res){
                 if(err){
                     dispatch({type: 'FETCH_PROFILE_REJECTED', payload: JSON.parse(res)});
